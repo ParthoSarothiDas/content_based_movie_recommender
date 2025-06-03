@@ -1,6 +1,6 @@
 
 # 🎬 Movie Recommendation System using Streamlit
-[👉 GO TO WEBSITE](https://partho-movie-recommender.streamlit.app/)
+[🌐Visit Website](https://partho-movie-recommender.streamlit.app/)
 
 Welcome to the **Movie Recommendation System** built with Python and Streamlit! This app helps users discover movies similar to their favorites and also explore detailed information about any movie in the dataset. It leverages TMDB data and a content-based similarity model to generate recommendations.
 
