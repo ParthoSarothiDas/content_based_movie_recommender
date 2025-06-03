@@ -33,7 +33,7 @@ def load_movies():
 def load_similarity():
     file_path = 'data/similarity_vector.npy'
     if not os.path.exists(file_path):
-        st.info("Downloading similarity matrix from Google Drive...")
+        # st.info("Downloading similarity matrix from Google Drive...")
         file_id = "1fKypzqYbTelVttuWhsuPqWSOjvs_yZSe"   # https://drive.google.com/file/d/1fKypzqYbTelVttuWhsuPqWSOjvs_yZSe/view?usp=sharing
         url = f"https://drive.google.com/uc?id={file_id}"
         os.makedirs('data', exist_ok=True)
