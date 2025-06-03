@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import os
+import gdown
+
 
 
 # Logical Functions
@@ -28,7 +31,14 @@ def load_movies():
 
 @st.cache_data
 def load_similarity():
-    return np.load('data/similarity_vector.npy')
+    file_path = 'data/similarity_vector.npy'
+    if not os.path.exists(file_path):
+        st.info("Downloading similarity matrix from Google Drive...")
+        file_id = "1fKypzqYbTelVttuWhsuPqWSOjvs_yZSe"   # https://drive.google.com/file/d/1fKypzqYbTelVttuWhsuPqWSOjvs_yZSe/view?usp=sharing
+        url = f"https://drive.google.com/uc?id={file_id}"
+        os.makedirs('data', exist_ok=True)
+        gdown.download(url, file_path, quiet=False)
+    return np.load(file_path)
 
 movie_df = load_movies()
 similarity_vector = load_similarity()
