@@ -4,8 +4,7 @@ import numpy as np
 import os
 import gdown
 
-
-
+st.set_page_config(page_title='Movie')
 # Logical Functions
 #-----------------------
 
@@ -25,9 +24,13 @@ def recommended_movie_df(movie):
 #          Streamlit App
 # ----------------------------------------------------
 # -------------Import data------------------------------------------
-@st.cache_data
+# @st.cache_data
 def load_movies():
     return pd.read_csv('data/movie_df_processed.csv')
+
+# @st.cache_data
+# def load_similarity():
+#     return np.load('data/similarity_vector.npy')
 
 @st.cache_data
 def load_similarity():
@@ -76,6 +79,12 @@ with tab1:
                     col3.metric('Minutes:', int(df['runtime'][i]))
                     st.markdown(f"**Overview:** {df['overview'][i]}")
                     st.markdown(f"[🌐 View on TMDB](https://www.themoviedb.org/movie/{df['id'][i]})", unsafe_allow_html=True)
+                
+                # Youtube Movie Trailer
+                expand = st.expander("Watch movie Trailer", icon="🎥")
+                with expand:
+                    youtube_url = "https://youtu.be/" + f"{df['video_ids'].iloc[i]}"
+                    st.video(youtube_url)
  
         else:
             pass     
@@ -88,7 +97,7 @@ with tab2:
         
         if selected_movie_info != 'Select a movie':
             df_single = movie_df[movie_df['title'] == selected_movie_info]
-            col1, col2 = st.columns([1,1])
+            col1, col2 = st.columns(2)
             with col1.container(border=True):
                 st.image(BASE_URL + df_single['poster_path'].iloc[0])
                 st.caption(f"🎥**{df_single['title'].iloc[0]}**")
@@ -97,19 +106,21 @@ with tab2:
                 st.markdown(f"**Release Year:** {int(df_single['release_year'].iloc[0])}")
                 st.markdown(f"**Director:** {df_single['director'].iloc[0]}")
                 st.markdown(f"**Stars:** • {df_single['star1'].iloc[0]} • {df_single['star2'].iloc[0]} • {df_single['star2'].iloc[0]}")
-                col1, col2, col3 = st.columns(3)
-                col1.metric('Viewer Rating',df_single['vote_average'].iloc[0])
-                col2.metric('Vote Count', df_single['vote_count'].iloc[0])
-                col3.metric('Minutes:', int(df_single['runtime'].iloc[0]))
-                st.markdown(f"**Overview:** {df_single['overview'].iloc[0]}") 
-                st.markdown(f"[🌐 View on TMDB](https://www.themoviedb.org/movie/{df_single['id'].iloc[0]})", unsafe_allow_html=True)
+                coll1, coll2, coll3 = st.columns(3)
+                coll1.metric('Viewer Rating',df_single['vote_average'].iloc[0])
+                coll2.metric('Vote Count', df_single['vote_count'].iloc[0])
+                coll3.metric('Minutes:', int(df_single['runtime'].iloc[0]))
+                st.markdown(f"**Overview:** {df_single['overview'].iloc[0]}")
+                st.markdown(f"[🌐 More info on TMDB](https://www.themoviedb.org/movie/{df_single['id'].iloc[0]})", unsafe_allow_html=True)
                 
-            
+            # Youtube Movie Trailer
+            expand = st.expander("   Watch movie Trailer", icon="🎥")
+            with expand:
+                youtube_url = "https://youtu.be/" + f"{df_single['video_ids'].iloc[0]}"
+                st.video(youtube_url)
         else:
             pass
-
-
-
+        
 
 # Footer
 st.markdown("<br><br>", unsafe_allow_html=True)
