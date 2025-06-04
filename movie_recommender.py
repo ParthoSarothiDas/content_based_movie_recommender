@@ -70,7 +70,7 @@ with tab1:
                     st.caption(f"🎥**{df['title'][i]}**")
                 
                 with col2.container(border=True):
-                    st.markdown(f"**Release Year:** {int(df['release_year'][i])}")
+                    st.markdown(f"🎥 {df['title'].iloc[i]} : {int(df['release_year'].iloc[i])}")
                     st.markdown(f"**Director:** {df['director'][i]}")
                     st.markdown(f"**Stars:** • {df['star1'][i]} • {df['star2'][i]} • {df['star2'][i]}")
                     col1, col2, col3 = st.columns(3)
@@ -81,7 +81,7 @@ with tab1:
                     st.markdown(f"[🌐 View on TMDB](https://www.themoviedb.org/movie/{df['id'][i]})", unsafe_allow_html=True)
                 
                 # Youtube Movie Trailer
-                expand = st.expander("Watch movie Trailer", icon="🎥")
+                expand = st.expander(f"Watch Trailer : {df['title'].iloc[i]}", icon="🎥")
                 with expand:
                     youtube_url = "https://youtu.be/" + f"{df['video_ids'].iloc[i]}"
                     st.video(youtube_url)
@@ -103,7 +103,10 @@ with tab2:
                 st.caption(f"🎥**{df_single['title'].iloc[0]}**")
             
             with col2.container(border=True):
-                st.markdown(f"**Release Year:** {int(df_single['release_year'].iloc[0])}")
+                st.markdown(f"🎥 {df_single['title'].iloc[0]} : {int(df_single['release_year'].iloc[0])}")
+
+
+                # st.markdown(f"**Release Year:** {int(df_single['release_year'].iloc[0])}")
                 st.markdown(f"**Director:** {df_single['director'].iloc[0]}")
                 st.markdown(f"**Stars:** • {df_single['star1'].iloc[0]} • {df_single['star2'].iloc[0]} • {df_single['star2'].iloc[0]}")
                 coll1, coll2, coll3 = st.columns(3)
@@ -114,7 +117,7 @@ with tab2:
                 st.markdown(f"[🌐 More info on TMDB](https://www.themoviedb.org/movie/{df_single['id'].iloc[0]})", unsafe_allow_html=True)
                 
             # Youtube Movie Trailer
-            expand = st.expander("   Watch movie Trailer", icon="🎥")
+            expand = st.expander(f"Watch Trailer : {df_single['title'].iloc[0]}", icon="🎥")
             with expand:
                 youtube_url = "https://youtu.be/" + f"{df_single['video_ids'].iloc[0]}"
                 st.video(youtube_url)
